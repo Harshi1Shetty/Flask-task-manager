@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #f0f0f0; /* Optional background color */
+            font-family: Arial, sans-serif; /* Optional font */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .button-group {
+            margin-bottom: 20px;
+        }
+
+        .button-group button {
+            margin-right: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .filter-form {
+            margin-bottom: 20px;
+        }
+
+        .filter-form label {
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        table td {
+            text-align: center;
+        }
+
+        table td a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        table td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <div class="button-group">
+            <button onclick="window.location.href='{{ url_for('create_task') }}'">Create New Task</button>
+        </div>
+        <div class="filter-form">
+            <form method="get" action="{{ url_for('index') }}" style="display: inline-block;">
+                <label for="status">Filter by status:</label>
+                <select id="status" name="status" onchange="this.form.submit()">
+                    <option value="">All</option>
+                    <option value="pending" {% if filter_status == 'pending' %}selected{% endif %}>Pending</option>
+                    <option value="completed" {% if filter_status == 'completed' %}selected{% endif %}>Completed</option>
+                </select>
+            </form>
+            <form method="get" action="{{ url_for('index') }}" style="display: inline-block;">
+                <label for="priority">Filter by priority:</label>
+                <select id="priority" name="priority" onchange="this.form.submit()">
+                    <option value="">All</option>
+                    <option value="low" {% if filter_priority == 'low' %}selected{% endif %}>Low</option>
+                    <option value="medium" {% if filter_priority == 'medium' %}selected{% endif %}>Medium</option>
+                    <option value="high" {% if filter_priority == 'high' %}selected{% endif %}>High</option>
+                </select>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.due_date }}</td>
+                    <td>{{ task.priority }}</td>
+                    <td>{{ task.status }}</td>
+                    <td>
+                        <a href="{{ url_for('update_task', task_id=task.id) }}">Edit</a>
+                        <a href="{{ url_for('delete_task', task_id=task.id) }}">Delete</a>
+                        <a href="{{ url_for('complete_task', task_id=task.id) }}">Complete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
