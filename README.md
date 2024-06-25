@@ -9,11 +9,11 @@ This is a simple Task Management System built with Flask, a Python web framework
 - **Update Task:** Edit task details such as description, due date, priority, and status.
 - **Delete Task:** Remove tasks from the system.
 - **Mark Task as Completed:** Change the status of a task to completed.
-- **Responsive Design:** The interface is designed to work well on both desktop and mobile devices.
+
 
 ## Prerequisites
 
-- Python 3.x
+- Python
 - Flask
 - Web browser
 
