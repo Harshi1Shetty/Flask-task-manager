@@ -24,15 +24,4 @@ This is a simple Task Management System built with Flask, a Python web framework
    ```bash
    git clone https://github.com/Harshi1Shetty/Flask-task-manager.git
 
-## Directory Structure
 
-Flask-task-manager/
-│
-├── app.py                  # Main Flask application script
-├
-│
-│
-├── templates/              # Directory for HTML templates
-│   ├── create_task.html    # HTML template for creating a new task
-│   ├── index.html          # Main page displaying task list and filters
-│   └── update_task.html    # HTML template for updating a task
